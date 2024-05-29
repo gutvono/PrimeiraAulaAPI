@@ -10,8 +10,8 @@ namespace PrimeiraAulaApi2
     {
         public static int GetCountRecords(List<PenalidadesAplicadas> lista) => lista.Count;
 
-        public static List<PenalidadesAplicadas> FilterByCpf(List<PenalidadesAplicadas> lista, string cpf) => lista
-            .Where(m => m.CPF.StartsWith(cpf))
+        public static List<PenalidadesAplicadas> FilterByCpf(List<PenalidadesAplicadas> lista, int cpf) => lista
+            .Where(m => m.CPF.StartsWith(cpf.ToString()))
             .ToList();
 
         public static List<PenalidadesAplicadas> FilterByYear(List<PenalidadesAplicadas> lista, int year) => lista

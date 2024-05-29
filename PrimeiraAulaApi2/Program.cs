@@ -25,7 +25,7 @@ do
             numero = int.Parse(Console.ReadLine());
             Console.Clear();
             Console.WriteLine($"Registros com o cpf do documento iniciando com -{numero}-");
-            TestFilter.PrintData(TestFilter.FilterByCpf(lst, "237"));
+            TestFilter.PrintData(TestFilter.FilterByCpf(lst, numero));
             Console.WriteLine("\n\nPressione qualquer tecla para continuar...");
             Console.ReadKey();
             break;
