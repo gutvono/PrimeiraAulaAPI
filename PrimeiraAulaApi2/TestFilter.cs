@@ -11,15 +11,15 @@ namespace PrimeiraAulaApi2
         public static int GetCountRecords(List<PenalidadesAplicadas> lista) => lista.Count;
 
         public static List<PenalidadesAplicadas> FilterByCpf(List<PenalidadesAplicadas> lista, string cpf) => lista
-            .Where(m => m.CPF.StartsWith(cpf, StringComparison.OrdinalIgnoreCase))
+            .Where(m => m.CPF.StartsWith(cpf))
             .ToList();
 
-        public static List<PenalidadesAplicadas> FilterByYear(List<PenalidadesAplicadas> lista, string year) => lista
-            .Where(m => m.VigenciaCadastro.Year.Equals(int.Parse(year)))
+        public static List<PenalidadesAplicadas> FilterByYear(List<PenalidadesAplicadas> lista, int year) => lista
+            .Where(m => m.VigenciaCadastro.Year.Equals(year))
             .ToList();
 
         public static int FilterBySocialReasonName(List<PenalidadesAplicadas> lista, string name) => lista
-            .Where(m => m.RazaoSocial.Contains(name))
+            .Where(m => m.RazaoSocial.Contains(name, StringComparison.OrdinalIgnoreCase))
             .Count();
 
         public static List<PenalidadesAplicadas> OrderBySocialReason(List<PenalidadesAplicadas> lista) => lista

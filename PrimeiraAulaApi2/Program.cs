@@ -24,7 +24,7 @@ do
             Console.Write("Informe o numero:");
             numero = int.Parse(Console.ReadLine());
             Console.Clear();
-            Console.WriteLine($"Registros com o cpf do documento iniciando com {numero}");
+            Console.WriteLine($"Registros com o cpf do documento iniciando com -{numero}-");
             TestFilter.PrintData(TestFilter.FilterByCpf(lst, "237"));
             Console.WriteLine("\n\nPressione qualquer tecla para continuar...");
             Console.ReadKey();
@@ -34,8 +34,8 @@ do
             Console.Write("Informe o ano:");
             ano = int.Parse(Console.ReadLine());
             Console.Clear();
-            Console.WriteLine($"Registros com o ano de vigencia {ano}");
-            TestFilter.PrintData(TestFilter.FilterByYear(lst, "2021"));
+            Console.WriteLine($"Registros com o ano de vigencia -{ano}-");
+            TestFilter.PrintData(TestFilter.FilterByYear(lst, ano));
             Console.WriteLine("\n\nPressione qualquer tecla para continuar...");
             Console.ReadKey();
             break;
@@ -44,8 +44,8 @@ do
             Console.Write("Pesquisar nome: ");
             name = Console.ReadLine();
             Console.Clear();
-            Console.WriteLine($"Empresas com {name} razao social");
-            Console.WriteLine(TestFilter.FilterBySocialReasonName(lst, "LTDA"));
+            Console.WriteLine($"Empresas com -{name}- na razao social");
+            Console.WriteLine(TestFilter.FilterBySocialReasonName(lst, name));
             Console.WriteLine("\n\nPressione qualquer tecla para continuar...");
             Console.ReadKey();
             break;
