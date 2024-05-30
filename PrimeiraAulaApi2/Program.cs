@@ -1,8 +1,12 @@
-﻿using PrimeiraAulaApi2;
-
-Console.WriteLine("Agora vai!");
+﻿using Microsoft.Data.SqlClient;
+using MongoDB.Driver;
+using PrimeiraAulaApi2;
+using System.Diagnostics;
 
 var lst = ReadFile.GetData("C:\\Users\\Gustavo Vono\\Documents\\TAREFAS\\api\\PrimeiraAulaAPI\\PrimeiraAulaApi2\\motoristas_habilitados.json");
+Stopwatch sw = new();
+SqlConnection conexaoSql = new(Banco.ConexaoSql());
+MongoClient conexaoMongo = new(Banco.ConexaoMongo());
 
 Console.WriteLine($"Quantidade de linhas: {TestFilter.GetCountRecords(lst)}");
 
@@ -15,6 +19,8 @@ do
         "2 - Listar registros que tenham o ano de vigencia ____;\n" + //2021
         "3 - Quantas empresas tem _____ na razao socia;\n" +
         "4 - Mostrar lista de registros ordenada pela razao social;\n" +
+        "5 - Inserir dados no banco SQL;\n" +
+        "6 - Inserir dados no banco Mongo;\n" +
         "0 - Finalizar sistema.");
     opcao = int.Parse(Console.ReadLine());
     switch (opcao)
@@ -55,6 +61,31 @@ do
             TestFilter.PrintData(TestFilter.OrderBySocialReason(lst));
             Console.WriteLine("\n\nPressione qualquer tecla para continuar...");
             Console.ReadKey();
+            break;
+        case 5:
+            Console.Clear();
+            Console.WriteLine("Realizando inserção de dados no banco SQL...");
+            sw = Stopwatch.StartNew();
+            sw.Start();
+            PenalidadesAplicadas.RegisterPenaltySql(conexaoSql, lst);
+            sw.Stop();
+            Console.WriteLine($"A insersão demorou {sw.ElapsedMilliseconds} milissegundos.");
+            Console.WriteLine("\nPressione qualquer tecla para continuar...");
+            Console.ReadKey();
+            sw.Restart();
+            break;
+        case 6:
+            Console.Clear();
+            Console.WriteLine("Realizando inserção de dados no banco Mongo...");
+            sw = Stopwatch.StartNew();
+            var ListaSqlData = Banco.GetSqlData(conexaoSql);
+            sw.Start();
+            Banco.ProcessDataToMongo(conexaoMongo, conexaoSql, ListaSqlData);
+            sw.Stop();
+            Console.WriteLine($"A insersão demorou {sw.ElapsedMilliseconds} milissegundos.");
+            Console.WriteLine("\nPressione qualquer tecla para continuar...");
+            Console.ReadKey();
+            sw.Restart();
             break;
         default:
             break;
